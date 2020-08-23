@@ -77,13 +77,13 @@ clone_repo(){
 install(){
     echo "进行安装。。。"
 # 解除sudu权限限制
-#    mkdir ~/.npm-global
-#    npm config set prefix '~/.npm-global'
-#    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
-#    source ~/.profile
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+    source ~/.profile
 #
     cd IBM-tele-aria2/tele-aria2
-#    npm install tele-aria2 -g
+    npm install tele-aria2 -g
 #    tele-aria2 --config config.json
     cd ..
     ibmcloud target --cf
