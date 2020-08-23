@@ -1,0 +1,3 @@
+[submodule "tele-aria2"]
+	path = tele-aria2
+	url = https://github.com/HouCoder/tele-aria2.git
