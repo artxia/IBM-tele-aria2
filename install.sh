@@ -49,7 +49,7 @@ create_mainfest_file(){
     cd ~ &&
     sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml &&
     sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml && 
-    sed -i '/scripts/a\    "start": "node tele-aria2 --config config.json",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
+    sed -i '/scripts/a\    "start": "npm start",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
 
     cat >  ${SH_PATH}/IBM-tele-aria2/tele-aria2/config.json  << EOF
     {
