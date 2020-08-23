@@ -84,8 +84,8 @@ install(){
     npm install tele-aria2 -g
     tele-aria2 --config config.json
     cd ..
-    ibmcloud target --cf
-    ibmcloud cf push
+#    ibmcloud target --cf
+#    ibmcloud cf push
     echo "安装完成。"
     sleep 3s
     echo
