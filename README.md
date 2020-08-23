@@ -1,3 +1,3 @@
 # IBM-RSSHub
 
-IBM Cloud Fonudray + RSSHub + cloudflare + Github Actions
+IBM Cloud Fonudray + tele-aria2 + cloudflare + Github Actions
