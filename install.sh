@@ -82,7 +82,7 @@ install(){
 #
     cd IBM-tele-aria2/tele-aria2
     npm install tele-aria2 -g
-    tele-aria2 --config  ../config.json
+    tele-aria2 --config config.json
     cd ..
     ibmcloud target --cf
     ibmcloud cf push
