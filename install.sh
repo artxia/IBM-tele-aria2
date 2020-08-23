@@ -50,8 +50,7 @@ create_mainfest_file(){
     sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml &&
     sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml && 
 #    sed -i '/scripts/a\    "start": "npm start",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json && 
-    sed -i '/scripts/a\    "preinstall": "npm i tele-aria2 -g",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
-    sed -i '/repository/a\  "engines": {\n    "node": "12.*"\n  },' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
+#    sed -i '/scripts/a\    "preinstall": "npm i tele-aria2 -g",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
 
     cat >  ${SH_PATH}/IBM-tele-aria2/tele-aria2/config.json  << EOF
     {
@@ -78,10 +77,10 @@ clone_repo(){
 install(){
     echo "进行安装。。。"
 # 解除sudu权限限制
-    mkdir ~/.npm-global
-    npm config set prefix '~/.npm-global'
-    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
-    source ~/.profile
+#    mkdir ~/.npm-global
+#    npm config set prefix '~/.npm-global'
+#    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+#    source ~/.profile
 #
     cd IBM-tele-aria2/tele-aria2
 #    npm install tele-aria2 -g
