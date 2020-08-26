@@ -46,7 +46,22 @@ create_mainfest_file(){
     echo "你的aria2服务端key${ARIA2_KEY}"    
 
     cd ~ &&
-
+    cat >  ${SH_PATH}/manifest.yml  << EOF
+    {
+    applications:
+    - name: ${IBM_APP_NAME}
+      memory: ${IBM_MEM_SIZE}M
+      docker:
+        image: houcoder/tele-aria2:latest
+      env:
+        --aria2-server: ${ARIA2_SERVER}
+        --aria2-key: ${ARIA2_KEY}
+        --bot-key: ${BOT_TOKEN}
+        --user-id: ${TELEGRAM_ID}
+        --max-index: 10
+      random-route:: true
+    }
+EOF
     echo "配置完成。"
 }
 
@@ -54,13 +69,7 @@ create_mainfest_file(){
 install(){
     echo "进行安装。。。"
     ibmcloud target --cf
-    ibmcloud cf push ${IBM_APP_NAME} --docker-image houcoder/tele-aria2:latest --no-start -m ${IBM_MEM_SIZE}M --no-route
-    ibmcloud cf set-env ${IBM_APP_NAME} --aria2-server ${ARIA2_SERVER}
-    ibmcloud cf set-env ${IBM_APP_NAME} --aria2-key ${ARIA2_KEY}
-    ibmcloud cf set-env ${IBM_APP_NAME} --bot-key ${BOT_TOKEN}
-    ibmcloud cf set-env ${IBM_APP_NAME} --user-id ${TELEGRAM_ID}
-    ibmcloud cf set-env ${IBM_APP_NAME} --max-index 10
-    ibmcloud cf start ${IBM_APP_NAME}
+    ibmcloud cf push
     echo "安装完成。"
     sleep 3s
     echo
