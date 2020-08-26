@@ -60,6 +60,7 @@ install(){
     ibmcloud cf set-env ${IBM_APP_NAME} --bot-key ${BOT_TOKEN}
     ibmcloud cf set-env ${IBM_APP_NAME} --user-id ${TELEGRAM_ID}
     ibmcloud cf set-env ${IBM_APP_NAME} --max-index 10
+    ibmcloud cf start
     echo "安装完成。"
     sleep 3s
     echo
