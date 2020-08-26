@@ -46,43 +46,26 @@ create_mainfest_file(){
     echo "你的aria2服务端key${ARIA2_KEY}"    
 
     cd ~ &&
-    sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml &&
-    sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml && 
-
-    cat >  ${SH_PATH}/IBM-tele-aria2/tele-aria2/config.json  << EOF
-    {
-      "aria2-server": "${ARIA2_SERVER}",
-      "aria2-key": "${ARIA2_KEY}",
-      "bot-key": "${BOT_TOKEN}",
-      "user-id": "${TELEGRAM_ID}",
-      "max-index": 10
-    }
-EOF
 
     echo "配置完成。"
 }
 
-clone_repo(){
-    echo "进行初始化。。。"
-    git clone https://github.com/artxia/IBM-tele-aria2
-    cd IBM-tele-aria2
-#    git submodule update --init --recursive
-    mkdir tele-aria2
-    sleep 10s
-    echo "初始化完成。"
-}
 
 install(){
     echo "进行安装。。。"
-    cd IBM-tele-aria2
     ibmcloud target --cf
-    ibmcloud cf push
+    ibmcloud cf push ${IBM_APP_NAME} --docker-image houcoder/tele-aria2:latest --no-start -m 256M --no-route
+    ibmcloud cf set-env ${IBM_APP_NAME} --aria2-server ${ARIA2_SERVER}
+    ibmcloud cf set-env ${IBM_APP_NAME} --aria2-key ${ARIA2_KEY}
+    ibmcloud cf set-env ${IBM_APP_NAME} --bot-key ${BOT_TOKEN}
+    ibmcloud cf set-env ${IBM_APP_NAME} --user-id ${TELEGRAM_ID}
+    ibmcloud cf set-env ${IBM_APP_NAME} --max-index 10
     echo "安装完成。"
     sleep 3s
     echo
 }
 
-clone_repo
+
 create_mainfest_file
 install
 exit 0
