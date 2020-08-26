@@ -3,4 +3,7 @@ applications:
   name: cloud_fonudray_name
   no-route: true
   memory: cloud_fonudray_memM
-  command: npm install tele-aria2 -g
+  # command: /tests/test.sh
+  docker:
+    image: houcoder/tele-aria2:latest
+
