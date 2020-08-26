@@ -47,20 +47,20 @@ create_mainfest_file(){
 
     cd ~ &&
     cat >  ${SH_PATH}/manifest.yml  << EOF
-    {
-    applications:
-    - name: ${IBM_APP_NAME}
-      memory: ${IBM_MEM_SIZE}M
-      docker:
-        image: houcoder/tele-aria2:latest
-      env:
-        --aria2-server: ${ARIA2_SERVER}
-        --aria2-key: ${ARIA2_KEY}
-        --bot-key: ${BOT_TOKEN}
-        --user-id: ${TELEGRAM_ID}
-        --max-index: 10
-      random-route:: true
-    }
+{
+applications:
+- name: ${IBM_APP_NAME}
+  memory: ${IBM_MEM_SIZE}M
+  docker:
+    image: houcoder/tele-aria2:latest
+  env:
+    --aria2-server: ${ARIA2_SERVER}
+    --aria2-key: ${ARIA2_KEY}
+    --bot-key: ${BOT_TOKEN}
+    --user-id: ${TELEGRAM_ID}
+    --max-index: 10
+  random-route:: true
+}
 EOF
     echo "配置完成。"
 }
