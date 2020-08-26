@@ -47,7 +47,6 @@ create_mainfest_file(){
 
     cd ~ &&
     cat >  ${SH_PATH}/manifest.yml  << EOF
-{
 applications:
 - name: ${IBM_APP_NAME}
   memory: ${IBM_MEM_SIZE}M
@@ -60,7 +59,7 @@ applications:
     --user-id: ${TELEGRAM_ID}
     --max-index: 10
   random-route:: true
-}
+
 EOF
     echo "配置完成。"
 }
