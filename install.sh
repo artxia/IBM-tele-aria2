@@ -33,8 +33,7 @@ create_mainfest_file(){
     echo "你的机器人token${BOT_TOKEN}"
 
     read -p "请输入使用机器人的telegram账号ID：" TELEGRAM_ID
-    #判断telegram ID是否正确(通过判断是不是纯数字)
-    until [[ $TELEGRAM_ID =~ ^-?[0-9]+$ ]]; do
+    until [[ ${TELEGRAM_ID} =~ ^-?[0-9]+$ ]]; do
     echo -e "机器人ID输入不正确，请重新输入"
     read -p "请输入使用机器人的telegram账号ID：" TELEGRAM_ID
     done
@@ -49,8 +48,6 @@ create_mainfest_file(){
     cd ~ &&
     sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml &&
     sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml && 
-#    sed -i '/scripts/a\    "start": "npm start",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json && 
-#    sed -i '/scripts/a\    "preinstall": "npm i tele-aria2 -g",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
 
     cat >  ${SH_PATH}/IBM-tele-aria2/tele-aria2/config.json  << EOF
     {
@@ -69,23 +66,15 @@ clone_repo(){
     echo "进行初始化。。。"
     git clone https://github.com/artxia/IBM-tele-aria2
     cd IBM-tele-aria2
-    git submodule update --init --recursive
+#    git submodule update --init --recursive
+    mkdir tele-aria2
     sleep 10s
     echo "初始化完成。"
 }
 
 install(){
     echo "进行安装。。。"
-# 解除sudu权限限制
-    mkdir ~/.npm-global
-    npm config set prefix '~/.npm-global'
-    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
-    source ~/.profile
-#
-    cd IBM-tele-aria2/tele-aria2
-    npm install tele-aria2 -g
-#    tele-aria2 --config config.json
-    cd ..
+    cd IBM-tele-aria2
     ibmcloud target --cf
     ibmcloud cf push
     echo "安装完成。"
