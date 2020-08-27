@@ -1,8 +1,11 @@
 applications:
-- name: cloud_fonudray_name
-  no-route: true
+- path: tele-aria2
+  name: cloud_fonudray_name
+  health-check-type: process
+  random-route: true
   memory: cloud_fonudray_memM
-  # command: /tests/test.sh
-  docker:
-    image: houcoder/tele-aria2:latest
+  timeout: 600
+  buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack.git
+  command: tele-aria2 --config config.json
 
