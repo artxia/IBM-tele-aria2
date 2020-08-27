@@ -1,6 +1,6 @@
 name: IBM Cloud Auto Restart
 
-on:
+#on:
 #  push:
 #    branches: [ master ]
 #  pull_request:
