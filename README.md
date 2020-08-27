@@ -1,4 +1,4 @@
-# IBM-RSSHub
+# IBM-tele-aria2
 
 IBM Cloud Fonudray + tele-aria2(Telegram+aria2) + Github Actions
 
