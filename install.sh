@@ -46,27 +46,44 @@ create_mainfest_file(){
     echo "你的aria2服务端key${ARIA2_KEY}"    
 
     cd ~ &&
-    cat >  ${SH_PATH}/manifest.yml  << EOF
-applications:
-- name: ${IBM_APP_NAME}
-  memory: ${IBM_MEM_SIZE}M
-  docker:
-    image: houcoder/tele-aria2:latest
-  env:
-    --aria2-server: ${ARIA2_SERVER}
-    --aria2-key: ${ARIA2_KEY}
-    --bot-key: ${BOT_TOKEN}
-    --user-id: ${TELEGRAM_ID}
-    --max-index: 10
-  random-route:: true
+    sed -i "s/cloud_fonudray_name/${IBM_APP_NAME}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml &&
+    sed -i "s/cloud_fonudray_mem/${IBM_MEM_SIZE}/g" ${SH_PATH}/IBM-tele-aria2/manifest.yml && 
+#    sed -i '/scripts/a\    "start": "npm start",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json && 
+    sed -i '/scripts/a\    "preinstall": "npm i tele-aria2 -g",' ${SH_PATH}/IBM-tele-aria2/tele-aria2/package.json
 
+    cat >  ${SH_PATH}/IBM-tele-aria2/tele-aria2/config.json  << EOF
+    {
+      "aria2-server": "${ARIA2_SERVER}",
+      "aria2-key": "${ARIA2_KEY}",
+      "bot-key": "${BOT_TOKEN}",
+      "user-id": "${TELEGRAM_ID}",
+      "max-index": 10
+    }
 EOF
+
     echo "配置完成。"
 }
 
+clone_repo(){
+    echo "进行初始化。。。"
+    git clone https://github.com/artxia/IBM-tele-aria2
+    cd IBM-tele-aria2
+    git submodule update --init --recursive
+    sleep 10s
+    echo "初始化完成。"
+}
 
 install(){
     echo "进行安装。。。"
+# 解除sudu权限限制
+    mkdir ~/.npm-global
+    npm config set prefix '~/.npm-global'
+    sed -i '$a\export PATH=~/.npm-global/bin:$PATH' ~/.profile
+    source ~/.profile
+#
+    cd IBM-tele-aria2/tele-aria2
+    npm i
+    cd ..
     ibmcloud target --cf
     ibmcloud cf push
     echo "安装完成。"
@@ -74,7 +91,7 @@ install(){
     echo
 }
 
-
+clone_repo
 create_mainfest_file
 install
 exit 0
