@@ -24,7 +24,6 @@ jobs:
 
     - name: Settings Configuration File
       run: |
-#        cd ${GITHUB_WORKSPACE}
         git submodule update --init --recursive
         sed -i "s/cloud_fonudray_name/${{ secrets.IBM_APP_NAME }}/g" ${GITHUB_WORKSPACE}/manifest.yml
         sed -i "s/cloud_fonudray_mem/256/g" ${GITHUB_WORKSPACE}/manifest.yml
