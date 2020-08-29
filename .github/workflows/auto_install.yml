@@ -1,0 +1,60 @@
+name: IBM Cloud Auto Restart
+
+on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+#  schedule:
+#    - cron: 0 4 * * 5
+  watch:
+    types: [started]
+
+jobs:
+  ibm-cloud-restart:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build dependencies
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install wget
+        sudo apt-get -y install curl
+
+    - name: Settings Configuration File
+      run: |
+#        cd ${GITHUB_WORKSPACE}
+        git submodule update --init --recursive
+        sed -i "s/cloud_fonudray_name/${{ secrets.IBM_APP_NAME }}/g" ${GITHUB_WORKSPACE}/manifest.yml
+        sed -i "s/cloud_fonudray_mem/256/g" ${GITHUB_WORKSPACE}/manifest.yml
+        sed -i '/colors/a\  "tele-aria2": "^0.2.2",' ${GITHUB_WORKSPACE}/tele-aria2/package.json
+        sed -i '/homepage/a\  "engines": {\n    "node": "12.*"\n  },' ${GITHUB_WORKSPACE}/tele-aria2/package.json
+        sed -i '/scripts/a\    "preinstall": "npm i tele-aria2 -g",' ${GITHUB_WORKSPACE}/tele-aria2/package.json
+
+        cat >  ${GITHUB_WORKSPACE}/tele-aria2/config.json  << EOF
+        {
+          "aria2-server": "${{ secrets.ARIA2_SERVER }}",
+          "aria2-key": "${{ secrets.ARIA2_KEY }}",
+          "bot-key": "${{ secrets.BOT_TOKEN }}",
+          "user-id": "${{ secrets.TELEGRAM_ID }}",
+          "max-index": 10
+        }
+        EOF
+
+    - name: Install Aria2Bot dependencies
+      run: |
+        cd ${GITHUB_WORKSPACE}/tele-aria2
+        npm i
+        cd ..
+
+    - name: Install Cloud Foundry CLI
+      run: |
+        curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v6" | tar -zx
+        sudo mv cf /usr/local/bin
+      
+    - name: Login Cloud Foundry
+      run: cf l -a https://api.${{ secrets.IBM_RGN }}.cf.cloud.ibm.com login -u ${{ secrets.IBM_MAIL }} -p ${{ secrets.IBM_PWD }}
+      
+    - name: Restart Cloud Foundry APP
+      run: cf push ${{ secrets.IBM_APP_NAME }}
