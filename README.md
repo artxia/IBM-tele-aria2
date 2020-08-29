@@ -1,15 +1,15 @@
 # IBM-tele-aria2
 
-IBM Cloud Fonudray + tele-aria2(Telegram+aria2) + Github Actions
+IBM Cloud Fonudray + tele-aria2(Telegram+Aria2) + Github Actions
 
-效果：在GitHub点Star自动安装tele-aria2机器人，并且定时重启IBM CF
+效果：用GitHub Actions全自动安装tele-aria2机器人(Telegram+Aria2)，并且每周五12点定时重启IBM CF
 
 前提：已安装Aria2、并申请好Telegram机器人
 
 第一步：注册IBM Cloud Fonudray记住账号密码
 cloud.ibm.com
 
-第二步：打开GitHub注册，然后Fork本项目
+第二步：打开GitHub注册，然后Fork本项目（顺便点个Star）
 
 第三步：在你自己的GitHub项目里面点Settings（设置）然后点Secrets（隐私）新建如下内容
 
@@ -24,6 +24,8 @@ BOT_TOKEN          Telegram机器人token
 TELEGRAM_ID        Telegram账号ID(约8位数ID)
  ```
 
-第四步：在你自己的GitHub项目里面，点右上角Star开始安装
+第四步：在你自己的GitHub项目里面，点Actions然后点左侧IBM Cloud Auto Install切换，然后点 Run workflow 开始全自动安装
 
 结束
+
+打开你自己建的TGbot，输入/start
