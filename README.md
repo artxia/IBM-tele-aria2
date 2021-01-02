@@ -29,3 +29,6 @@ TELEGRAM_ID | Telegram账号ID(约8位数ID) | Secrets | Yes
 结束
 
 打开你自己建的TGbot，输入/start
+
+
+## 核心项目 [tele-aria2](https://github.com/HouCoder/tele-aria2)
