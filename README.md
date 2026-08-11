@@ -1,12 +1,14 @@
+
+
 # IBM-tele-aria2
 
-IBM Cloud Fonudray + tele-aria2(Telegram+Aria2) + Github Actions
+IBM Cloud Foundry + tele-aria2(Telegram+Aria2) + Github Actions
 
 效果：用GitHub Actions全自动安装tele-aria2机器人(Telegram+Aria2)，并且每周五12点定时重启IBM CF
 
 前提：已安装Aria2、并申请好Telegram机器人
 
-第一步：注册IBM Cloud Fonudray记住账号密码
+第一步：注册IBM Cloud Foundry记住账号密码
 cloud.ibm.com
 
 第二步：打开GitHub注册，然后Fork本项目（顺便点个Star）
